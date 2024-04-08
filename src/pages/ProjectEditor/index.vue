@@ -23,6 +23,12 @@ const chooseProject = () => {
 const goBack = () => {
   router.push('/')
 }
+
+onMounted(() => {
+  navigator.storage.getDirectory().then(handle => {
+    console.log(handle)
+  })
+})
 </script>
 
 <template>
