@@ -55,6 +55,7 @@ const clickNode = async (node: ProjectTreeData) => {
   } else {
     const n = node as FileNode
     emit('changeActiveFileHandle', n.handle)
+    setLasterFileHandle(n.handle)
   }
 }
 

@@ -10,6 +10,7 @@ declare global {
   const add: typeof import('./utils/index')['add']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const clearLasterHandles: typeof import('./utils/indexedDB')['clearLasterHandles']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -39,6 +40,8 @@ declare global {
   const getDirectoryHandleByPath: typeof import('./utils/fileSystem')['getDirectoryHandleByPath']
   const getFileContentByHandle: typeof import('./utils/fileSystem')['getFileContentByHandle']
   const getFileHandleByPath: typeof import('./utils/fileSystem')['getFileHandleByPath']
+  const getLasterDirHandle: typeof import('./utils/indexedDB')['getLasterDirHandle']
+  const getLasterFileHandle: typeof import('./utils/indexedDB')['getLasterFileHandle']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
@@ -90,6 +93,8 @@ declare global {
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
+  const setLasterDirHandle: typeof import('./utils/indexedDB')['setLasterDirHandle']
+  const setLasterFileHandle: typeof import('./utils/indexedDB')['setLasterFileHandle']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
@@ -308,6 +313,7 @@ declare module 'vue' {
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly clearLasterHandles: UnwrapRef<typeof import('./utils/indexedDB')['clearLasterHandles']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -337,6 +343,8 @@ declare module 'vue' {
     readonly getDirectoryHandleByPath: UnwrapRef<typeof import('./utils/fileSystem')['getDirectoryHandleByPath']>
     readonly getFileContentByHandle: UnwrapRef<typeof import('./utils/fileSystem')['getFileContentByHandle']>
     readonly getFileHandleByPath: UnwrapRef<typeof import('./utils/fileSystem')['getFileHandleByPath']>
+    readonly getLasterDirHandle: UnwrapRef<typeof import('./utils/indexedDB')['getLasterDirHandle']>
+    readonly getLasterFileHandle: UnwrapRef<typeof import('./utils/indexedDB')['getLasterFileHandle']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
@@ -388,6 +396,8 @@ declare module 'vue' {
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
+    readonly setLasterDirHandle: UnwrapRef<typeof import('./utils/indexedDB')['setLasterDirHandle']>
+    readonly setLasterFileHandle: UnwrapRef<typeof import('./utils/indexedDB')['setLasterFileHandle']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
@@ -599,6 +609,7 @@ declare module '@vue/runtime-core' {
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly clearLasterHandles: UnwrapRef<typeof import('./utils/indexedDB')['clearLasterHandles']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -628,6 +639,8 @@ declare module '@vue/runtime-core' {
     readonly getDirectoryHandleByPath: UnwrapRef<typeof import('./utils/fileSystem')['getDirectoryHandleByPath']>
     readonly getFileContentByHandle: UnwrapRef<typeof import('./utils/fileSystem')['getFileContentByHandle']>
     readonly getFileHandleByPath: UnwrapRef<typeof import('./utils/fileSystem')['getFileHandleByPath']>
+    readonly getLasterDirHandle: UnwrapRef<typeof import('./utils/indexedDB')['getLasterDirHandle']>
+    readonly getLasterFileHandle: UnwrapRef<typeof import('./utils/indexedDB')['getLasterFileHandle']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
@@ -679,6 +692,8 @@ declare module '@vue/runtime-core' {
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
+    readonly setLasterDirHandle: UnwrapRef<typeof import('./utils/indexedDB')['setLasterDirHandle']>
+    readonly setLasterFileHandle: UnwrapRef<typeof import('./utils/indexedDB')['setLasterFileHandle']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
