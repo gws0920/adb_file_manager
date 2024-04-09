@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { Folder, Document, DocumentBlank, Aperture, FolderOpen /*, Json */ } from '@vicons/carbon'
-import { ProjectTreeData, DirectoryNode, FileNode } from '../index.d'
+import { ProjectTreeData, DirectoryNode, FileNode } from '../../index.d'
 import Tree from './ProjectTree.vue'
-const props = withDefaults(defineProps<{
-  nodes?: ProjectTreeData[]
+const props = defineProps<{
+  node?: ProjectTreeData
   activeFileHandle?: FileSystemFileHandle
-}>(), { nodes: () => [] })
+  searchVal: string
+}>()
 const emit = defineEmits<{
   (e: 'changeActiveFileHandle', handle?: FileSystemFileHandle): void
 }>()
@@ -26,7 +27,9 @@ const getNodeChildren = async (node: DirectoryNode) => {
   return children
 }
 
-const getIcon = (node: ProjectTreeData) => {
+const icon = computed(() => {
+  const node = props.node
+  if (!node) return null
   if ('isLoading' in node && node.isLoading) return Aperture
   const { kind, name } = node.handle
   if ('isOpened' in node && kind === 'directory') {
@@ -36,7 +39,7 @@ const getIcon = (node: ProjectTreeData) => {
     return /\.json$/i.test(name) ? Document : Document
   }
   return DocumentBlank
-}
+})
 
 const clickNode = async (node: ProjectTreeData) => {
   if (node.handle.kind === 'directory') {
@@ -55,40 +58,47 @@ const clickNode = async (node: ProjectTreeData) => {
   }
 }
 
+const isActive = ref(false)
+watch(() => props.activeFileHandle, async () => {
+  if (!props.activeFileHandle || !props.node?.handle) return
+  isActive.value = await props.node?.handle.isSameEntry(props.activeFileHandle)
+}, { immediate: true })
+
 onMounted(async () => {
-  for (let i = 0; i < props.nodes.length; i++) {
-    const { handle } = props.nodes[i]
-    if (handle.kind === 'directory') {
-      const node = props.nodes[i] as DirectoryNode
-      if (node.isOpened) {
-        node.isLoading = true
-        const children = await getNodeChildren(node)
-        node.children = children
-        node.isLoading = false
-      }
+  if (!props.node) return
+  const { handle } = props.node
+  if (handle.kind === 'directory') {
+    const node = props.node as DirectoryNode
+    if (node.isOpened) {
+      node.isLoading = true
+      const children = await getNodeChildren(node)
+      node.children = children
+      node.isLoading = false
     }
   }
 })
 </script>
 
 <template>
-  <ul>
-    <li v-for="node in props.nodes" :key="node.handle.name" class="flex flex-col">
-      <div class="node-info" :class="{active: node.handle === props.activeFileHandle}" @click="clickNode(node)">
-        <el-icon class="mr-2">
-          <component :is="getIcon(node)"/>
-        </el-icon>
-        <code> {{ node.handle.name }}</code>
-      </div>
+  <li v-if="props.node" class="flex flex-col">
+    <div class="node-info" :class="{active: isActive}" @click="clickNode(props.node)">
+      <el-icon v-if="icon" class="mr-2">
+        <component :is="icon"/>
+      </el-icon>
+      <code> {{ props.node.handle.name }}</code>
+    </div>
+    <ul v-if="'children' in props.node && props.node.handle.kind === 'directory' && props.node.isOpened">
       <Tree
-        v-if="'children' in node && node.handle.kind === 'directory' && node.isOpened"
+        v-for="node in props.node.children"
+        :key="node.handle.name"
         :active-file-handle="props.activeFileHandle"
-        :nodes="node.children"
-        class="ml-6 w-max-content overflow-hidden"
-        @change-active-file-handle="handle => emit('changeActiveFileHandle', handle)"
+        :node="node"
+        :search-val="props.searchVal"
+        class="ml-4 w-max-content overflow-hidden"
+        @change-active-file-handle="emit('changeActiveFileHandle', $event)"
       />
-    </li>
-  </ul>
+    </ul>
+  </li>
 </template>
 
 <style lang="scss" scoped>
