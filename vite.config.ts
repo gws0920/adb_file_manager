@@ -7,6 +7,8 @@ import { ElementPlusResolve, createStyleImportPlugin } from 'vite-plugin-style-i
 import vue from '@vitejs/plugin-vue'
 import UnoCSS from 'unocss/vite'
 
+const INVALID_CHAR_REGEX = /[\u0000-\u001F"#$&*+,:;<=>?[\]^`{|}\u007F]/g
+const DRIVE_LETTER_REGEX = /^[a-z]:/i
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -57,6 +59,20 @@ export default defineConfig({
         replacement: resolve(__dirname, './src')
       },
     ]
+  },
+  build: {
+    outDir: 'dist',
+    rollupOptions: {
+      output: {
+        sanitizeFileName (name: any) {
+          const match = DRIVE_LETTER_REGEX.exec(name)
+          const driveLetter = match ? match[0] : ''
+          // A `:` is only allowed as part of a windows drive letter (ex: C:\foo)
+          // Otherwise, avoid them because they can refer to NTFS alternate data streams.
+          return driveLetter + name.slice(driveLetter.length).replace(INVALID_CHAR_REGEX, '')
+        },
+      }
+    }
   },
   base: './'
 })
