@@ -30,7 +30,7 @@ jobs:
         with:
           path: |
             **/node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
       # 如果缓存没有命中，安装依赖
