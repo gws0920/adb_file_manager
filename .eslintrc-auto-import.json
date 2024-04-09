@@ -294,6 +294,10 @@
     "whenever": true,
     "user": true,
     "useUserStore": true,
-    "ElMessage": true
+    "ElMessage": true,
+    "getDirectoryHandleByPath": true,
+    "getFileContentByHandle": true,
+    "getFileHandleByPath": true,
+    "minmax": true
   }
 }

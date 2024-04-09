@@ -5,22 +5,12 @@ const props = defineProps<{
 
 const content = ref('')
 
-const getFileContent = async () => {
-  return new Promise<string>((resolve, reject) => {
-    if (!props.fileHandle) return ''
-    const reader = new FileReader()
-    reader.onload = () => {
-      resolve(reader.result as string)
-    }
-    reader.onerror = reject
-    props.fileHandle.getFile().then(file => {
-      reader.readAsText(file)
-    })
-  })
-}
-
 watch(() => props.fileHandle, async () => {
-  content.value = await getFileContent()
+  if (!props.fileHandle) {
+    content.value = ''
+  } else {
+    content.value = await getFileContentByHandle(props.fileHandle)
+  }
 })
 
 const saving = ref(false)
