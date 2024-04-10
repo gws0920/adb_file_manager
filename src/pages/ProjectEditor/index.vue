@@ -44,14 +44,20 @@ const getDir = async () => {
 }
 
 onMounted(async () => {
-  const dirHandle = await getLasterDirHandle()
+  const dirHandle = await getLasterDirHandle().catch(err => {
+    console.warn('读取缓存的目录句柄失败, 目录可能已被删除', err)
+    return null
+  })
   if (!dirHandle) return
   root.value = {
     handle: dirHandle,
     isOpened: true,
     isLoading: false,
   }
-  const fileHandle = await getLasterFileHandle()
+  const fileHandle = await getLasterFileHandle().catch(err => {
+    console.warn('读取缓存的文件句柄失败, 文件可能已被删除', err)
+    return null
+  })
   if (!fileHandle) return
   // TODO: 判断这个fileHandle是否在root下
   // TODO: 如果是的话，相关父级文件夹全部设为 isOpened = true

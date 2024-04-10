@@ -9,6 +9,7 @@ watch(() => props.fileHandle, async () => {
   if (!props.fileHandle) {
     content.value = ''
   } else {
+    // TODO: 优化，文件超过3M时，会卡顿。原因在于dom渲染慢
     content.value = await getFileContentByHandle(props.fileHandle)
   }
 })
