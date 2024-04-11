@@ -52,13 +52,17 @@ onMounted(async () => {
   <div class="flex flex-col h-full w-full p-2 overflow-hidden">
     <div class="flex items-center">
       <el-page-header @back="goBack">
+        <template #title>
+          <span style="color: var(--el-text-color-regular)">
+            返回首页
+          </span>
+        </template>
         <template #content>
           <code v-if="root" class="font-600 text-large mr-3">{{ root?.handle.name }}</code>
           <el-button
             type="primary"
             :loading="loading"
             text
-            bg
             @click="chooseProject"
           >{{ root ? '修改项目' : '选择项目文件夹' }}</el-button>
         </template>

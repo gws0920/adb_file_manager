@@ -17,12 +17,8 @@ const props = defineProps<{
   fileHandle?: FileSystemFileHandle
 }>()
 
-const content = ref('')
-
 watch(() => props.fileHandle, async () => {
-  if (!props.fileHandle) {
-    content.value = ''
-  } else {
+  if (props.fileHandle) {
     initEditor()
   }
 })
@@ -34,10 +30,10 @@ const initEditor = async () => {
     editorBox.dispose?.()
   }
   if (!editorContainer.value || !props.fileHandle) return
-  content.value = await getFileContentByHandle(props.fileHandle)
+  const content = await getFileContentByHandle(props.fileHandle)
 
   editorBox = editor.create(editorContainer.value, {
-    value: content.value,
+    value: content,
     language: getLanguageByHandle(props.fileHandle),
     theme: useDark().value ? 'darkTheme' : 'vs',
     foldingStrategy: 'indentation',
@@ -73,7 +69,8 @@ const save = () => {
   const fileHandle = props.fileHandle
   saving.value = true
   fileHandle.createWritable().then(writable => {
-    writable.write(content.value)
+    const content = editorBox.getValue()
+    writable.write(content)
     writable.close()
     ElMessage.success('保存成功')
   }).finally(() => {
@@ -85,19 +82,18 @@ const save = () => {
 
 <template>
   <div class="flex flex-col">
-    <div class="flex mb-2 items-center justify-between">
+    <div class="controls">
       <code class="font-bold">{{ props.fileHandle?.name || '' }}</code>
-      <el-button type="primary" @click="save">保存</el-button>
+      <el-button type="primary" size="small" @click="save">保存</el-button>
     </div>
     <div ref="editorContainer" class="flex flex-1 h-0" />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.content-input {
-  @apply h-full flex-1 h-0 overflow-auto;
-  :deep(.el-textarea__inner) {
-    @apply h-full;
-  }
+.controls {
+  @apply rounded flex mb-2 p-2 items-center justify-between;
+  background-color: var(--el-fill-color-light);
+  color: var(--el-text-color-regular);
 }
 </style>

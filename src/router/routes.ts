@@ -20,6 +20,33 @@ const routes: RouteRecordRaw[] = [
     meta: {
       title: '文件编辑器'
     }
+  },
+  {
+    path: '/WebUSBDevice',
+    name: 'WebUSBDevice',
+    redirect: '/WebUSBDevice/FileManager',
+    component: () => import('@/pages/WebUSBDevice/index.vue'),
+    meta: {
+      title: 'ADB管理'
+    },
+    children: [
+      {
+        path: 'FileManager',
+        name: 'FileManager',
+        component: () => import('@/pages/WebUSBDevice/FileManager/index.vue'),
+        meta: {
+          title: '文件管理'
+        }
+      },
+      {
+        path: 'ADBRunner',
+        name: 'ADBRunner',
+        component: () => import('@/pages/WebUSBDevice/ADBRunner/index.vue'),
+        meta: {
+          title: '文件管理'
+        }
+      }
+    ]
   }
 ]
 
