@@ -8,7 +8,6 @@ declare global {
   const ADB_DEVICE_CHANGE: typeof import('./utils/EVENT_BUS_KEYS')['ADB_DEVICE_CHANGE']
   const EffectScope: typeof import('vue')['EffectScope']
   const ElMessage: typeof import('element-plus/es')['ElMessage']
-  const add: typeof import('./utils/index')['add']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const clearLasterHandles: typeof import('./utils/indexedDB')['clearLasterHandles']
