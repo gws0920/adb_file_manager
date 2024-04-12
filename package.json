@@ -25,6 +25,7 @@
     "@yume-chan/adb-credential-web": "^0.0.23",
     "@yume-chan/adb-daemon-webusb": "^0.0.23",
     "@yume-chan/stream-extra": "^0.0.23",
+    "dayjs": "^1.11.10",
     "dexie": "^4.0.1",
     "element-plus": "^2.4.4",
     "monaco-editor": "^0.47.0",

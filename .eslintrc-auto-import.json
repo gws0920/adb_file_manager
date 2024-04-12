@@ -303,6 +303,8 @@
     "getLasterDirHandle": true,
     "getLasterFileHandle": true,
     "setLasterFileHandle": true,
-    "clearLasterHandles": true
+    "clearLasterHandles": true,
+    "formatFileSize": true,
+    "ADB_DEVICE_CHANGE": true
   }
 }

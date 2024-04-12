@@ -1,9 +1,12 @@
 <script lang="ts" setup>
-import { AdbDaemonWebUsbDeviceManager, ADB_DEFAULT_DEVICE_FILTER, AdbDaemonWebUsbDevice, AdbDaemonWebUsbConnection } from '@yume-chan/adb-daemon-webusb'
+import { AdbDaemonWebUsbDeviceManager, AdbDaemonWebUsbDevice } from '@yume-chan/adb-daemon-webusb'
 import { Adb, AdbDaemonTransport } from '@yume-chan/adb'
 import AdbWebCredentialStore from '@yume-chan/adb-credential-web'
-import { DecodeUtf8Stream, WritableStream } from '@yume-chan/stream-extra'
+// import { DecodeUtf8Stream, WritableStream } from '@yume-chan/stream-extra'
 import DeviceMenu from './components/DeviceMenu/index.vue'
+
+const bus = useEventBus(ADB_DEVICE_CHANGE)
+
 // 获取设备权限
 const requestDevice = () => {
   const Manager = AdbDaemonWebUsbDeviceManager.BROWSER
@@ -28,31 +31,31 @@ const getDevice = () => {
   return Manager.getDevices()
 }
 
-const run = async () => {
-  const device = await getDevice() || await requestDevice()
-  if (!device) return
-  const connection = await device.connect()
-  const credentialStore = new AdbWebCredentialStore()
-  const transport = await AdbDaemonTransport.authenticate({
-    serial: device.serial,
-    connection,
-    credentialStore
-  })
-  const adb = new Adb(transport)
-  const process = await adb.subprocess.spawn('ls -l')
+// const run = async () => {
+//   const device = await getDevice() || await requestDevice()
+//   if (!device) return
+//   const connection = await device.connect()
+//   const credentialStore = new AdbWebCredentialStore()
+//   const transport = await AdbDaemonTransport.authenticate({
+//     serial: device.serial,
+//     connection,
+//     credentialStore
+//   })
+//   const adb = new Adb(transport)
+//   const process = await adb.subprocess.spawn('ls -l')
 
-  console.log(process)
+//   console.log(process)
 
-  let res = ''
-  const stream = new WritableStream<string>({
-    write: (chunk) => {
-      res += chunk
-    },
-  })
-  window.d = device
-  await process.stdout.pipeThrough(new DecodeUtf8Stream()).pipeTo(stream)
-  console.log(res)
-}
+//   let res = ''
+//   const stream = new WritableStream<string>({
+//     write: (chunk) => {
+//       res += chunk
+//     },
+//   })
+//   window.d = device
+//   await process.stdout.pipeThrough(new DecodeUtf8Stream()).pipeTo(stream)
+//   console.log(res)
+// }
 
 const router = useRouter()
 const goBack = () => {
@@ -60,6 +63,7 @@ const goBack = () => {
 }
 
 let adb: Adb | null = null
+provide('getAdb', () => adb)
 const deviceInfo = reactive({ name: '', serial: '' })
 const initDevice = async (device: AdbDaemonWebUsbDevice) => {
   if (device.raw.opened) return ElMessage.info('设备已连接')
@@ -76,6 +80,7 @@ const initDevice = async (device: AdbDaemonWebUsbDevice) => {
     credentialStore
   })
   adb = new Adb(transport)
+  bus.emit()
 }
 
 const loading = ref(false)
