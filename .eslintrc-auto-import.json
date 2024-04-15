@@ -305,6 +305,10 @@
     "setLasterFileHandle": true,
     "clearLasterHandles": true,
     "formatFileSize": true,
-    "ADB_DEVICE_CHANGE": true
+    "ADB_DEVICE_CHANGE": true,
+    "downloadDeviceFile": true,
+    "downloadDeviceDir": true,
+    "ProgressStream": true,
+    "uploadFileToDevice": true
   }
 }

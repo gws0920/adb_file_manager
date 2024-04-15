@@ -1,7 +1,7 @@
 export * from './fileSystem'
 export * from './indexedDB'
 export * from './EVENT_BUS_KEYS'
-
+export * from './adbDevice'
 export const minmax = (val: number, [min, max]: number[]) => Math.max(Math.min(val, max), min)
 
 export function formatFileSize (size: number) {

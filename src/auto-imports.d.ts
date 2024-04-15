@@ -8,6 +8,7 @@ declare global {
   const ADB_DEVICE_CHANGE: typeof import('./utils/EVENT_BUS_KEYS')['ADB_DEVICE_CHANGE']
   const EffectScope: typeof import('vue')['EffectScope']
   const ElMessage: typeof import('element-plus/es')['ElMessage']
+  const ProgressStream: typeof import('./utils/adbDevice')['ProgressStream']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const clearLasterHandles: typeof import('./utils/indexedDB')['clearLasterHandles']
@@ -32,6 +33,8 @@ declare global {
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
+  const downloadDeviceDir: typeof import('./utils/adbDevice')['downloadDeviceDir']
+  const downloadDeviceFile: typeof import('./utils/adbDevice')['downloadDeviceFile']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
@@ -118,6 +121,7 @@ declare global {
   const unref: typeof import('vue')['unref']
   const unrefElement: typeof import('@vueuse/core')['unrefElement']
   const until: typeof import('@vueuse/core')['until']
+  const uploadFileToDevice: typeof import('./utils/adbDevice')['uploadFileToDevice']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
   const useAnimate: typeof import('@vueuse/core')['useAnimate']
   const useArrayDifference: typeof import('@vueuse/core')['useArrayDifference']
@@ -313,6 +317,7 @@ declare module 'vue' {
     readonly ADB_DEVICE_CHANGE: UnwrapRef<typeof import('./utils/EVENT_BUS_KEYS')['ADB_DEVICE_CHANGE']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
+    readonly ProgressStream: UnwrapRef<typeof import('./utils/adbDevice')['ProgressStream']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly clearLasterHandles: UnwrapRef<typeof import('./utils/indexedDB')['clearLasterHandles']>
@@ -337,6 +342,8 @@ declare module 'vue' {
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
+    readonly downloadDeviceDir: UnwrapRef<typeof import('./utils/adbDevice')['downloadDeviceDir']>
+    readonly downloadDeviceFile: UnwrapRef<typeof import('./utils/adbDevice')['downloadDeviceFile']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
@@ -423,6 +430,7 @@ declare module 'vue' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly unrefElement: UnwrapRef<typeof import('@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
+    readonly uploadFileToDevice: UnwrapRef<typeof import('./utils/adbDevice')['uploadFileToDevice']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useAnimate: UnwrapRef<typeof import('@vueuse/core')['useAnimate']>
     readonly useArrayDifference: UnwrapRef<typeof import('@vueuse/core')['useArrayDifference']>
@@ -611,6 +619,7 @@ declare module '@vue/runtime-core' {
     readonly ADB_DEVICE_CHANGE: UnwrapRef<typeof import('./utils/EVENT_BUS_KEYS')['ADB_DEVICE_CHANGE']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
+    readonly ProgressStream: UnwrapRef<typeof import('./utils/adbDevice')['ProgressStream']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly clearLasterHandles: UnwrapRef<typeof import('./utils/indexedDB')['clearLasterHandles']>
@@ -635,6 +644,8 @@ declare module '@vue/runtime-core' {
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
+    readonly downloadDeviceDir: UnwrapRef<typeof import('./utils/adbDevice')['downloadDeviceDir']>
+    readonly downloadDeviceFile: UnwrapRef<typeof import('./utils/adbDevice')['downloadDeviceFile']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
@@ -721,6 +732,7 @@ declare module '@vue/runtime-core' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly unrefElement: UnwrapRef<typeof import('@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
+    readonly uploadFileToDevice: UnwrapRef<typeof import('./utils/adbDevice')['uploadFileToDevice']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useAnimate: UnwrapRef<typeof import('@vueuse/core')['useAnimate']>
     readonly useArrayDifference: UnwrapRef<typeof import('@vueuse/core')['useArrayDifference']>
