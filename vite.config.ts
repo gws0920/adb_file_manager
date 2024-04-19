@@ -42,7 +42,9 @@ export default defineConfig({
           libraryName: 'element-plus',
           esModule: true,
           resolveStyle: (name: string) => {
-            return `element-plus/theme-chalk/${name}.css`
+            if (/^el/.test(name)) {
+              return `element-plus/theme-chalk/${name}.css`
+            }
           },
         },
         {

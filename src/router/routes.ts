@@ -18,7 +18,7 @@ const routes: RouteRecordRaw[] = [
     name: 'ProjectEditor',
     component: () => import('@/pages/ProjectEditor/index.vue'),
     meta: {
-      title: '文件编辑器'
+      title: '参数调试'
     }
   },
   {
@@ -43,7 +43,7 @@ const routes: RouteRecordRaw[] = [
         name: 'ADBRunner',
         component: () => import('@/pages/WebUSBDevice/ADBRunner/index.vue'),
         meta: {
-          title: '文件管理'
+          title: 'ADB Runner'
         }
       }
     ]

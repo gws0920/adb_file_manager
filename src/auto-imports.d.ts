@@ -8,6 +8,7 @@ declare global {
   const ADB_DEVICE_CHANGE: typeof import('./utils/EVENT_BUS_KEYS')['ADB_DEVICE_CHANGE']
   const EffectScope: typeof import('vue')['EffectScope']
   const ElMessage: typeof import('element-plus/es')['ElMessage']
+  const ElMessageBox: typeof import('element-plus/es')['ElMessageBox']
   const ProgressStream: typeof import('./utils/adbDevice')['ProgressStream']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -317,6 +318,7 @@ declare module 'vue' {
     readonly ADB_DEVICE_CHANGE: UnwrapRef<typeof import('./utils/EVENT_BUS_KEYS')['ADB_DEVICE_CHANGE']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
+    readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>
     readonly ProgressStream: UnwrapRef<typeof import('./utils/adbDevice')['ProgressStream']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
@@ -619,6 +621,7 @@ declare module '@vue/runtime-core' {
     readonly ADB_DEVICE_CHANGE: UnwrapRef<typeof import('./utils/EVENT_BUS_KEYS')['ADB_DEVICE_CHANGE']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
+    readonly ElMessageBox: UnwrapRef<typeof import('element-plus/es')['ElMessageBox']>
     readonly ProgressStream: UnwrapRef<typeof import('./utils/adbDevice')['ProgressStream']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>

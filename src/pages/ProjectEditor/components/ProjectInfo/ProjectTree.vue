@@ -5,10 +5,12 @@ import Tree from './ProjectTree.vue'
 const props = defineProps<{
   node?: ProjectTreeData
   activeFileHandle?: FileSystemFileHandle
+  contentMenuNode?: ProjectTreeData | null
   searchVal: string
 }>()
 const emit = defineEmits<{
   (e: 'changeActiveFileHandle', handle?: FileSystemFileHandle): void
+  (e: 'showMenu', handle: ProjectTreeData, event?: MouseEvent): void
 }>()
 
 const getNodeChildren = async (node: DirectoryNode) => {
@@ -18,10 +20,11 @@ const getNodeChildren = async (node: DirectoryNode) => {
       children.unshift({
         handle: value,
         isOpened: false,
-        isLoading: false
+        isLoading: false,
+        parent: node
       })
     } else {
-      children.push({ handle: value })
+      children.push({ handle: value, parent: node })
     }
   }
   return children
@@ -57,6 +60,7 @@ const clickNode = async (node: ProjectTreeData) => {
     emit('changeActiveFileHandle', n.handle)
     setLasterFileHandle(n.handle)
   }
+  props.node && emit('showMenu', props.node)
 }
 
 const isActive = ref(false)
@@ -64,6 +68,14 @@ watch(() => props.activeFileHandle, async () => {
   if (!props.activeFileHandle || !props.node?.handle) return
   isActive.value = await props.node?.handle.isSameEntry(props.activeFileHandle)
 }, { immediate: true })
+
+const showMenu = (e: MouseEvent) => {
+  e.preventDefault()
+  props.node && emit('showMenu', props.node, e)
+}
+const childrenShowMenu = (handle: ProjectTreeData, e?: MouseEvent) => {
+  emit('showMenu', handle, e)
+}
 
 onMounted(async () => {
   if (!props.node) return
@@ -82,7 +94,12 @@ onMounted(async () => {
 
 <template>
   <li v-if="props.node" class="flex flex-col">
-    <div class="node-info" :class="{active: isActive}" @click="clickNode(props.node)">
+    <div
+      class="node-info"
+      :class="{active: isActive, 'clicked-node': props.contentMenuNode === props.node}"
+      @click.left="clickNode(props.node)"
+      @click.right.stop="showMenu"
+    >
       <el-icon v-if="icon" class="mr-2">
         <component :is="icon"/>
       </el-icon>
@@ -95,8 +112,10 @@ onMounted(async () => {
         :active-file-handle="props.activeFileHandle"
         :node="node"
         :search-val="props.searchVal"
+        :content-menu-node="props.contentMenuNode"
         class="ml-4 w-max-content overflow-hidden"
         @change-active-file-handle="emit('changeActiveFileHandle', $event)"
+        @show-menu="childrenShowMenu"
       />
     </ul>
   </li>
@@ -115,6 +134,9 @@ ul {
       &.active {
         color: var(--el-color-primary);
         background-color: var(--el-color-primary-light-9);
+      }
+      &.clicked-node {
+        background-color: var(--el-fill-color-light);
       }
       code {
         @apply overflow-hidden whitespace-nowrap;

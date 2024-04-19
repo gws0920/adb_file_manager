@@ -309,6 +309,7 @@
     "downloadDeviceFile": true,
     "downloadDeviceDir": true,
     "ProgressStream": true,
-    "uploadFileToDevice": true
+    "uploadFileToDevice": true,
+    "ElMessageBox": true
   }
 }
