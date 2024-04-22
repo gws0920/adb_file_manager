@@ -310,6 +310,9 @@
     "downloadDeviceDir": true,
     "ProgressStream": true,
     "uploadFileToDevice": true,
-    "ElMessageBox": true
+    "ElMessageBox": true,
+    "isImg": true,
+    "deleteHandle": true,
+    "renameHandle": true
   }
 }

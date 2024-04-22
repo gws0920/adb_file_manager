@@ -13,3 +13,7 @@ export function formatFileSize (size: number) {
   }
   return `${size.toFixed(3)}${units[i]}`
 }
+
+export function isImg (name: string) {
+  return /\.(png|jpg|jpeg|webp)$/.test(name)
+}

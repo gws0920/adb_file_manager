@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import ProjectInfo from './components/ProjectInfo/index.vue'
 import FileContent from './components/FileContent.vue'
+import NoFile from './components/NoFile.vue'
+import ImgViewer from './components/ImgViewer.vue'
 import { DirectoryNode } from './index.d'
 
 const root = ref<DirectoryNode>()
@@ -25,6 +27,14 @@ const goBack = () => {
   router.push('/')
 }
 
+const component = computed(() => {
+  if (!activeFileHandle.value) return NoFile
+
+  if (isImg(activeFileHandle.value.name)) return ImgViewer
+
+  return FileContent
+})
+
 onMounted(async () => {
   const dirHandle = await getLasterDirHandle().catch(err => {
     console.warn('读取缓存的目录句柄失败, 目录可能已被删除', err)
@@ -36,13 +46,12 @@ onMounted(async () => {
     isOpened: true,
     isLoading: false,
   }
-  const fileHandle = await getLasterFileHandle().catch(err => {
+  const fileHandle = await getLasterFileHandle()
+  const notDeleted = await fileHandle?.getFile().catch(err => {
     console.warn('读取缓存的文件句柄失败, 文件可能已被删除', err)
-    return null
+    return false
   })
-  if (!fileHandle) return
-  // TODO: 判断这个fileHandle是否在root下
-  // TODO: 如果是的话，相关父级文件夹全部设为 isOpened = true
+  if (!fileHandle || !notDeleted) return
   activeFileHandle.value = fileHandle
 })
 
@@ -77,7 +86,7 @@ onMounted(async () => {
         @change-active-file-handle="activeFileHandle = $event"
       />
       <el-divider direction="vertical" class="!h-full" />
-      <FileContent :file-handle="activeFileHandle" class="flex-1 w-0" />
+      <component :is="component" :file-handle="activeFileHandle" class="flex-1 w-0" />
     </div>
   </div>
 </template>

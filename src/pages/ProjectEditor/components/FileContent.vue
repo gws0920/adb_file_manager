@@ -19,9 +19,10 @@ const props = defineProps<{
 
 watch(() => props.fileHandle, async () => {
   if (props.fileHandle) {
+    await nextTick()
     initEditor()
   }
-})
+}, { immediate: true })
 
 const editorContainer = ref<HTMLDivElement>()
 

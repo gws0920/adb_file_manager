@@ -45,3 +45,28 @@ export function getFileContentByHandle (file: FileSystemFileHandle, type: 'Text'
     file.getFile().then(file => fileReader[`readAs${type}`](file))
   })
 }
+
+/**
+ * 删除文件或文件夹
+ * 浏览器已经实现handle.remove()方法，但是MDN文档中没有说明，且ts也没有响应的声明。所以这里实现一个兼容性方法
+ * https://developer.chrome.com/docs/capabilities/web-apis/file-system-access?hl=zh-cn#deleting_a_file_or_folder_directly
+ * @param handle 要删除的句柄
+ * @param parent 父级文件夹句柄
+ * @returns void
+ */
+export function deleteHandle (handle: FileSystemDirectoryHandle | FileSystemFileHandle, parent: FileSystemDirectoryHandle) {
+  return parent.removeEntry(handle.name, { recursive: handle instanceof FileSystemDirectoryHandle })
+}
+
+/**
+ * 重命名文件或文件夹
+ * 浏览器已经实现handle.move()方法，但是MDN文档中没有说明，且ts也没有响应的声明。
+ * https://developer.chrome.com/docs/capabilities/web-apis/file-system-access?hl=zh-cn#renaming_and_moving_files_and_folders
+ * @param handle 重命名的句柄
+ * @param newName 新名字
+ * @param parent 父级句柄
+ * @returns void
+ */
+export function renameHandle (handle: FileSystemDirectoryHandle | FileSystemFileHandle, newName: string, parent: FileSystemDirectoryHandle) {
+  throw '尚未实现'
+}
