@@ -61,7 +61,7 @@ const childrenShowMenu = (handle: ProjectTreeData, e?: MouseEvent) => {
   emit('showMenu', handle, e)
 }
 
-onMounted(async () => {
+watch(() => props.node, async () => {
   if (!props.node) return
   const { handle } = props.node
   if (handle.kind === 'directory') {
@@ -73,7 +73,8 @@ onMounted(async () => {
       node.isLoading = false
     }
   }
-})
+}, { immediate: true })
+
 </script>
 
 <template>
