@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { Folder, Document, DocumentBlank, Aperture, FolderOpen /*, Json */ } from '@vicons/carbon'
 import { ProjectTreeData, DirectoryNode, FileNode } from '../../index.d'
+import { getNodeChildren } from '../../utils'
 import Tree from './ProjectTree.vue'
 const props = defineProps<{
   node?: ProjectTreeData
@@ -12,23 +13,6 @@ const emit = defineEmits<{
   (e: 'changeActiveFileHandle', handle?: FileSystemFileHandle): void
   (e: 'showMenu', handle: ProjectTreeData, event?: MouseEvent): void
 }>()
-
-const getNodeChildren = async (node: DirectoryNode) => {
-  const children: ProjectTreeData[] = []
-  for await (const value of node.handle.values()) {
-    if (value.kind === 'directory') {
-      children.unshift({
-        handle: value,
-        isOpened: false,
-        isLoading: false,
-        parent: node
-      })
-    } else {
-      children.push({ handle: value, parent: node })
-    }
-  }
-  return children
-}
 
 const icon = computed(() => {
   const node = props.node
@@ -58,7 +42,7 @@ const clickNode = async (node: ProjectTreeData) => {
   } else {
     const n = node as FileNode
     emit('changeActiveFileHandle', n.handle)
-    setLasterFileHandle(n.handle)
+    setLasterFileHandle(n.handle, n.relativePath)
   }
   props.node && emit('showMenu', props.node)
 }
@@ -82,7 +66,7 @@ onMounted(async () => {
   const { handle } = props.node
   if (handle.kind === 'directory') {
     const node = props.node as DirectoryNode
-    if (node.isOpened) {
+    if (node.isOpened && node.children === undefined) {
       node.isLoading = true
       const children = await getNodeChildren(node)
       node.children = children

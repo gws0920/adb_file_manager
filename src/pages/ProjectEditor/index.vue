@@ -4,6 +4,7 @@ import FileContent from './components/FileContent.vue'
 import NoFile from './components/NoFile.vue'
 import ImgViewer from './components/ImgViewer.vue'
 import { DirectoryNode } from './index.d'
+import { openParentByTarget } from './utils'
 
 const root = ref<DirectoryNode>()
 const activeFileHandle = ref<FileSystemFileHandle>()
@@ -17,6 +18,7 @@ const chooseProject = () => {
       handle,
       isOpened: true,
       isLoading: false,
+      relativePath: '',
     }
     setLasterDirHandle(handle)
   }).finally(() => {
@@ -36,23 +38,34 @@ const component = computed(() => {
 })
 
 onMounted(async () => {
+  // 读取缓存的目录句柄
   const dirHandle = await getLasterDirHandle().catch(err => {
     console.warn('读取缓存的目录句柄失败, 目录可能已被删除', err)
     return null
   })
   if (!dirHandle) return
-  root.value = {
+  const rootNode: DirectoryNode = {
     handle: dirHandle,
-    isOpened: true,
     isLoading: false,
+    isOpened: true,
+    relativePath: '',
   }
-  const fileHandle = await getLasterFileHandle()
-  const notDeleted = await fileHandle?.getFile().catch(err => {
+  // 读取缓存的文件句柄
+  const { handle, relativePath } = await getLasterFileHandle() || {}
+  const notDeleted = await handle?.getFile().catch(err => {
     console.warn('读取缓存的文件句柄失败, 文件可能已被删除', err)
     return false
   })
-  if (!fileHandle || !notDeleted) return
-  activeFileHandle.value = fileHandle
+  if (!handle || !notDeleted) {
+    root.value = rootNode
+    return
+  }
+
+  // 打开缓存的文件句柄对应的父目录
+  root.value = await openParentByTarget({ ...rootNode }, handle, relativePath || '').catch(() => {
+    return rootNode
+  })
+  activeFileHandle.value = handle
 })
 
 </script>
