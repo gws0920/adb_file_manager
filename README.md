@@ -1,7 +1,7 @@
 # Mini Tools
 在线文件编辑器、ADB管理工具
 ## 预览
-[Github Page](https://gws0920.github.io/MiniTools/)
+[Github Page](https://gws0920.github.io/adb_file_manager/)
 
 ## 已实现功能
 ### 参数调试
