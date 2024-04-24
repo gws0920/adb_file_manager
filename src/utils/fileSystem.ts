@@ -67,6 +67,6 @@ export function deleteHandle (handle: FileSystemDirectoryHandle | FileSystemFile
  * @param parent 父级句柄
  * @returns void
  */
-export function renameHandle (handle: FileSystemDirectoryHandle | FileSystemFileHandle, newName: string, parent: FileSystemDirectoryHandle) {
+export function renameHandle (/* handle: FileSystemDirectoryHandle | FileSystemFileHandle, newName: string, parent: FileSystemDirectoryHandle */) {
   throw '尚未实现'
 }
