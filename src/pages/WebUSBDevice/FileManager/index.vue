@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { Adb, AdbSyncEntry } from '@yume-chan/adb'
-import { Folder, ArrowLeft, Document, CloudDownload, Delete, CloudUpload, Search } from '@vicons/carbon'
+import { Folder, ArrowLeft, Document, CloudDownload, Delete, CloudUpload, Search, Settings } from '@vicons/carbon'
 import dayjs from 'dayjs'
 import { ElLoading } from 'element-plus'
+import FileFilterConfig from '@/components/FileFilterConfig/index.vue'
+import ConfigPreview from '@/components/FileFilterConfig/ConfigPreview.vue'
 
 interface FileEntry extends AdbSyncEntry {
   isDirectory?: boolean
@@ -143,6 +145,9 @@ const uploadFile = async () => {
   loading.close()
 }
 
+// 快速选择
+const showConfig = ref(false)
+
 const bus = useEventBus(ADB_DEVICE_CHANGE)
 bus.on(go)
 onMounted(go)
@@ -165,7 +170,24 @@ onMounted(go)
       </div>
       <div class="flex my-2 w-full items-center justify-between">
         <div class="left">
-          <el-button text bg :icon="Folder">快速选择</el-button>
+          <el-tooltip placement="right-start">
+            <template #content>
+              <ConfigPreview config-key="config" />
+            </template>
+            <el-button-group>
+              <el-button
+                text
+                bg
+                :icon="Folder"
+              >快速选择</el-button>
+              <el-button
+                text
+                bg
+                :icon="Settings"
+                @click="showConfig = true"
+              />
+            </el-button-group>
+          </el-tooltip>
         </div>
         <div class="right">
           <el-button :icon="CloudUpload" type="primary" @click="uploadFile">上传</el-button>
@@ -209,6 +231,8 @@ onMounted(go)
       </li>
     </ul>
     <el-empty v-else class="flex-1" description="无数据"/>
+
+    <FileFilterConfig v-model:visible="showConfig" save-key="config" />
   </div>
 </template>
 

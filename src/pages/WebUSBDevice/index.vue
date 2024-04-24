@@ -121,10 +121,11 @@ onMounted(async () => {
       </el-page-header>
     </div>
     <el-divider class="!mt-4 !mb-1" />
-    <div class="flex flex-1 h-0 my-2 overflow-hidden">
+    <div v-if="deviceInfo?.name" class="flex flex-1 h-0 my-2 overflow-hidden">
       <DeviceMenu />
       <router-view />
     </div>
+    <el-empty v-else description="请先插入设备" class="flex-1"/>
   </div>
 </template>
 
