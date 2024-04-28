@@ -76,5 +76,8 @@ export default defineConfig({
       }
     }
   },
-  base: './'
+  base: './',
+  optimizeDeps: {
+    include: []
+  }
 })

@@ -52,7 +52,27 @@ const routes: RouteRecordRaw[] = [
         }
       }
     ]
-  }
+  },
+  {
+    path: '/PythonRunner',
+    name: 'PythonRunner',
+    component: () => import('@/pages/PythonRunner/index.vue'),
+    meta: {
+      title: 'Python执行器',
+      icon: ApplicationWeb,
+      desc: '基于Pyodide 在线执行Python代码'
+    },
+    children: [
+      {
+        path: 'SimpleRunner',
+        name: 'SimpleRunner',
+        component: () => import('@/pages/PythonRunner/SimpleRunner/index.vue'),
+        meta: {
+          title: '简单执行器'
+        }
+      }
+    ]
+  },
 ]
 
 export default routes

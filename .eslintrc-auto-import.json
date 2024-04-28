@@ -313,6 +313,7 @@
     "ElMessageBox": true,
     "isImg": true,
     "deleteHandle": true,
-    "renameHandle": true
+    "renameHandle": true,
+    "usePyodide": true
   }
 }

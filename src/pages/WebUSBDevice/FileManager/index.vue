@@ -139,7 +139,8 @@ const uploadFile = async () => {
   for (let i = 0; i < fileHandles.length; i++) {
     const fileHandle = fileHandles[i]
     loading.setText(`正在写入 ${fileHandle.name}`)
-    await uploadFileToDevice(sync, `${pathStr.value}/${fileHandle.name}`, fileHandle, (v) => loading.setText(`正在写入 ${fileHandle.name} (${v}%)`))
+    const file = await fileHandle.getFile()
+    await uploadFileToDevice(sync, `${pathStr.value}/${fileHandle.name}`, file, (v) => loading.setText(`正在写入 ${fileHandle.name} (${v}%)`))
   }
   await go()
   loading.close()
@@ -222,7 +223,7 @@ onMounted(go)
           </el-icon>
           <code>{{ item.name }}</code>
         </div>
-        <code class="second">{{ dayjs(dayjs.unix(Number(item.mtime))).format('YYYY-MM-DD hh:mm:ss') }}</code>
+        <code class="second">{{ dayjs(dayjs.unix(Number(item.mtime))).format('YYYY-MM-DD HH:mm:ss') }}</code>
         <code class="second">{{ item.isDirectory ? '' : formatFileSize(Number(item.size)) }}</code>
         <div class="flex items-center justify-end">
           <el-icon class="ml-2" @click.stop="download(item)"><CloudDownload /></el-icon>

@@ -54,10 +54,7 @@ export const downloadDeviceDir = async (sync: AdbSync, dirPath: string, dirHandl
  *
  * eg: uploadFileToDevice(sync, '/storage/emulated/0/test.txt', fileHandle)
  */
-export const uploadFileToDevice = async (sync: AdbSync, path: string, file: FileSystemFileHandle | File, onProgress?: (v: number) => void) => {
-  if (file instanceof FileSystemFileHandle) {
-    file = await file.getFile()
-  }
+export const uploadFileToDevice = async (sync: AdbSync, path: string, file: File, onProgress?: (v: number) => void) => {
   const stream = new WrapReadableStream<Uint8Array>(file.stream() as unknown as ReadableStream<Uint8Array>)
     .pipeThrough(new WrapConsumableStream())
     .pipeThrough(
