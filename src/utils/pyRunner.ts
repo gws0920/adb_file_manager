@@ -4,6 +4,7 @@ import 'https://cdn.jsdelivr.net/pyodide/v0.25.1/full/pyodide.js'
 interface Options {
   stdout?: (msg: string) => void;
   stderr?: (msg: string) => void;
+  onLoaded?: () => void;
 }
 export const usePyodide = (options?: Options) => {
   const loading = ref(false)
@@ -35,7 +36,11 @@ export const usePyodide = (options?: Options) => {
     })
   }
   if (!pyodide.value && !loading.value) {
-    loadPy()
+    loadPy().then(() => {
+      options?.onLoaded?.()
+    })
+  } else {
+    options?.onLoaded?.()
   }
   return { loading, pyodide, runPythonAsync }
 }

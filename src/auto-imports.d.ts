@@ -12,6 +12,7 @@ declare global {
   const ProgressStream: typeof import('./utils/adbDevice')['ProgressStream']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const blob2base64: typeof import('./utils/index')['blob2base64']
   const clearLasterHandles: typeof import('./utils/indexedDB')['clearLasterHandles']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
@@ -325,6 +326,7 @@ declare module 'vue' {
     readonly ProgressStream: UnwrapRef<typeof import('./utils/adbDevice')['ProgressStream']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly blob2base64: UnwrapRef<typeof import('./utils/index')['blob2base64']>
     readonly clearLasterHandles: UnwrapRef<typeof import('./utils/indexedDB')['clearLasterHandles']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
@@ -631,6 +633,7 @@ declare module '@vue/runtime-core' {
     readonly ProgressStream: UnwrapRef<typeof import('./utils/adbDevice')['ProgressStream']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly blob2base64: UnwrapRef<typeof import('./utils/index')['blob2base64']>
     readonly clearLasterHandles: UnwrapRef<typeof import('./utils/indexedDB')['clearLasterHandles']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>

@@ -74,10 +74,12 @@ export default defineConfig({
           return driveLetter + name.slice(driveLetter.length).replace(INVALID_CHAR_REGEX, '')
         },
       }
-    }
+    },
+    assetsInlineLimit: 1024 * 1024 * 1
   },
   base: './',
   optimizeDeps: {
     include: []
-  }
+  },
+  assetsInclude: ['**/*.jpg'],
 })

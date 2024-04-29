@@ -314,6 +314,7 @@
     "isImg": true,
     "deleteHandle": true,
     "renameHandle": true,
-    "usePyodide": true
+    "usePyodide": true,
+    "blob2base64": true
   }
 }

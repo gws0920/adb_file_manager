@@ -9,6 +9,7 @@ declare module 'vue' {
   export interface GlobalComponents {
     ConfigPreview: typeof import('./src/components/FileFilterConfig/ConfigPreview.vue')['default']
     ContentMenu: typeof import('./src/components/ContentMenu/index.vue')['default']
+    ElAlert: typeof import('element-plus/es')['ElAlert']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElButtonGroup: typeof import('element-plus/es')['ElButtonGroup']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']

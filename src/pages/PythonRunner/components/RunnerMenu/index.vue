@@ -17,9 +17,9 @@ const defaultActive = computed(() => {
       <el-icon><Code /></el-icon>
       <template #title>运行简单Python</template>
     </el-menu-item>
-    <el-menu-item index="ADBRunner" :route="{name: 'ADBRunner'}" :disabled="true">
+    <el-menu-item index="RunWhl" :route="{name: 'RunWhl'}">
       <el-icon><Code /></el-icon>
-      <template #title>opencv</template>
+      <template #title>.whl</template>
     </el-menu-item>
   </el-menu>
 </template>

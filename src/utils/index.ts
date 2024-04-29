@@ -18,3 +18,12 @@ export function formatFileSize (size: number) {
 export function isImg (name: string) {
   return /\.(png|jpg|jpeg|webp)$/.test(name)
 }
+
+export function blob2base64 (blob: Blob) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => resolve(reader.result as string)
+    reader.onerror = (err: any) => reject(err)
+    reader.readAsDataURL(blob)
+  })
+}

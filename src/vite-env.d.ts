@@ -1,1 +1,2 @@
-// / <reference types="vite/client" />
+/* eslint-disable spaced-comment */
+/// <reference types="vite/client" />

@@ -57,6 +57,7 @@ const routes: RouteRecordRaw[] = [
     path: '/PythonRunner',
     name: 'PythonRunner',
     component: () => import('@/pages/PythonRunner/index.vue'),
+    redirect: '/PythonRunner/SimpleRunner',
     meta: {
       title: 'Python执行器',
       icon: ApplicationWeb,
@@ -69,6 +70,14 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/pages/PythonRunner/SimpleRunner/index.vue'),
         meta: {
           title: '简单执行器'
+        }
+      },
+      {
+        path: 'RunWhl',
+        name: 'RunWhl',
+        component: () => import('@/pages/PythonRunner/RunWhl/index.vue'),
+        meta: {
+          title: '使用whl'
         }
       }
     ]

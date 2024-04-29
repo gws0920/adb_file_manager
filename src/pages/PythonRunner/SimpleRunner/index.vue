@@ -79,7 +79,7 @@ onMounted(async () => {
       <h4>输出</h4>
       <ul>
         <li v-for="log, index in logs" :key="index" :class="log.type">
-          <time :datetime="(new Date(log.t)).toJSON()">{{ dayjs(log.t).format('HH:mm:ss:SSS') }}</time>
+          <time :datetime="(new Date(log.t)).toJSON()">{{ dayjs(log.t).format('HH:mm:ss') }}</time>
           <code>{{ log.text }}</code>
         </li>
       </ul>
@@ -105,7 +105,9 @@ onMounted(async () => {
         color: var(--el-color-error);
       }
       time {
-        @apply mr-2 text-sm opacity-80;
+        @apply mr-2 opacity-80;
+        font-size: 12px;
+        line-height: 20px;
       }
       code {
         @apply text-sm overflow-auto whitespace-pre;

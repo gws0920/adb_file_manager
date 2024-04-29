@@ -27,6 +27,6 @@
 
     "typeRoots": ["./node_modules/@types"]
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/global.d.ts"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/global.d.ts", "src/vite-ent.d.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
